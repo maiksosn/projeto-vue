@@ -98,14 +98,23 @@
               >Possui filhos ou dependentes?</label
             >
             <select
-              id="curriculum-children"
-              class="form-control form-select border-dark"
-              name="Curriculum[children]"
+              class="form-select"
+              v-model="possuiFilhosDependentes"
+              v-bind:class="{
+                'form-control': true,
+                'is-invalid':
+                  !validFilhosDep(possuiFilhosDependentes) && filhosDepBlured,
+                'is-valid': validFilhosDep(possuiFilhosDependentes),
+              }"
+              v-on:blur="filhosDepBlured = true"
             >
               <option value="">Selecione</option>
               <option value="0">Não</option>
               <option value="1">Sim</option>
             </select>
+            <div class="invalid-feedback">
+              "Possui filhos ou dependentes?" não pode ficar em branco.
+            </div>
           </div>
 
           <div class="col-md-6 mt-5 qfd">
@@ -113,14 +122,24 @@
               >Quantos filhos ou dependentes?</label
             >
             <select
-              id="curriculum-children"
-              class="form-control form-select border-dark"
-              name="Curriculum[children]"
+              class="form-select"
+              v-model="quantosFilhosDependentes"
+              v-bind:class="{
+                'form-control': true,
+                'is-invalid':
+                  !validQuantosDep(quantosFilhosDependentes) &&
+                  quantosDepBlured,
+                'is-valid': validQuantosDep(quantosFilhosDependentes),
+              }"
+              v-on:blur="quantosDepBlured = true"
             >
               <option value="">Selecione</option>
               <option value="0">Não</option>
               <option value="1">Sim</option>
             </select>
+            <div class="invalid-feedback">
+              "Quantos filhos ou dependentes?" não pode ficar em branco.
+            </div>
           </div>
         </div>
       </div>
@@ -130,9 +149,15 @@
           <div class="col-md-6 mt-5 ec">
             <label for="curriculum-children">Estado cívil</label>
             <select
-              id="curriculum-children"
-              class="form-control form-select border-dark"
-              name="Curriculum[children]"
+              class="form-select"
+              v-model="estadoCivil"
+              v-bind:class="{
+                'form-control': true,
+                'is-invalid':
+                  !validestadoCivil(estadoCivil) && estadoCivilBlured,
+                'is-valid': validestadoCivil(estadoCivil),
+              }"
+              v-on:blur="estadoCivilBlured = true"
             >
               <option value="">Selecione</option>
               <option value="0">Casado</option>
@@ -140,53 +165,28 @@
               <option value="2">solteiro</option>
               <option value="3">viuvo</option>
             </select>
+            <div class="invalid-feedback">
+              "Estado cívil" não pode ficar em branco.
+            </div>
           </div>
 
           <div class="col-md-6 mt-5 sx">
             <label for="curriculum-children">Sexo</label>
             <select
-              id="curriculum-children"
-              class="form-control form-select border-dark"
-              name="Curriculum[children]"
+              class="form-select"
+              v-model="sexo"
+              v-bind:class="{
+                'form-control': true,
+                'is-invalid': !validsexo(sexo) && sexoBlured,
+                'is-valid': validsexo(sexo),
+              }"
+              v-on:blur="sexoBlured = true"
             >
               <option value="">Selecione</option>
               <option value="0">Masculino</option>
               <option value="1">Feminino</option>
             </select>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-6 offset-md-1">
-        <div class="row">
-          <div class="col-md-6 mt-5 pd">
-            <label for="curriculum-children">Possui deficiência?</label>
-            <select
-              id="curriculum-children"
-              class="form-control form-select border-dark"
-              name="Curriculum[children]"
-            >
-              <option value="">Selecione</option>
-              <option value="0">Não</option>
-              <option value="1">Sim</option>
-            </select>
-          </div>
-          <div class="col-md-6 mt-5 qd">
-            <label for="curriculum-children">Qual deficiência?</label>
-            <select
-              id="curriculum-children"
-              class="form-control form-select border-dark"
-              name="Curriculum[children]"
-            >
-              <option value="">Selecione</option>
-              <option value="0">Auditiva</option>
-              <option value="1">Física</option>
-              <option value="2">Intelectual</option>
-              <option value="3">Mental</option>
-              <option value="4">Múltipla</option>
-              <option value="5">Outra</option>
-              <option value="6">Visual</option>
-            </select>
+            <div class="invalid-feedback">"Sexo" não pode ficar em branco.</div>
           </div>
         </div>
       </div>
@@ -195,11 +195,20 @@
         <div class="col-md-4 mt-5 cep">
           <label for="cep">Cep</label> <br />
           <input
-            class="form-control border border-dark"
+            class="form-control"
             type="text"
             v-model="cep"
             @keyup="searchCep()"
+            v-bind:class="{
+              'form-control': true,
+              'is-invalid': !validcep(dtns) && cepBlured,
+              'is-valid': validcep(dtns),
+            }"
+            v-on:blur="cepBlured = true"
           />
+          <div class="invalid-feedback">
+            <span> "Cep" não pode ficar em branco.</span>
+          </div>
         </div>
       </div>
 
@@ -208,20 +217,32 @@
           <div class="col-md-8 mt-5 endereco">
             <label for="endereco">Endereço</label>
             <input
-              class="form-control border-dark"
-              type="text"
-              name="endereco"
-              id="logradouro"
+              v-model="endereco"
+              v-bind:class="{
+                'form-control': true,
+                'is-invalid': !validendereco(endereco) && enderecoBlured,
+                'is-valid': validendereco(endereco),
+              }"
+              v-on:blur="enderecoBlured = true"
             />
+            <div class="invalid-feedback">
+              <span> "Endereço" não pode ficar em branco.</span>
+            </div>
           </div>
           <div class="col-md-4 mt-5 numero">
             <label for="numero">Número</label>
             <input
-              class="form-control border-dark"
-              type="text"
-              name="numero"
-              id="numero"
+              v-model="numero"
+              v-bind:class="{
+                'form-control': true,
+                'is-invalid': !validnumero(numero) && numeroBlured,
+                'is-valid': validnumero(numero),
+              }"
+              v-on:blur="numeroBlured = true"
             />
+            <div class="invalid-feedback">
+              <span> "Número" não pode ficar em branco.</span>
+            </div>
           </div>
         </div>
       </div>
@@ -231,16 +252,22 @@
           <div class="col-md-6 mt-5 bairro">
             <label for="bairro">Bairro</label>
             <input
-              class="form-control border-dark"
-              type="text"
-              name="bairro"
-              id="bairro"
+              v-model="bairro"
+              v-bind:class="{
+                'form-control': true,
+                'is-invalid': !validbairro(bairro) && bairroBlured,
+                'is-valid': validbairro(bairro),
+              }"
+              v-on:blur="bairroBlured = true"
             />
+            <div class="invalid-feedback">
+              <span> "Bairro" não pode ficar em branco.</span>
+            </div>
           </div>
           <div class="col-md-6 mt-5 complemento">
             <label for="complemento">Complemento</label>
             <input
-              class="form-control border-dark"
+              class="form-control"
               type="text"
               name="complemento"
               id="complemento"
@@ -254,10 +281,14 @@
           <div class="col-md-6 mt-5 cidades">
             <label for="localidade">Cidades</label>
             <select
-              id="localidade"
-              class="form-control form-select border-dark"
-              name="localidade"
-              placeholder="Localidade"
+              class="form-select"
+              v-model="cidade"
+              v-bind:class="{
+                'form-control': true,
+                'is-invalid': !validcidade(cidade) && cidadeBlured,
+                'is-valid': validcidade(cidade),
+              }"
+              v-on:blur="cidadeBlured = true"
             >
               <option value="">Selecione</option>
               <option value="3911">Abatiá</option>
@@ -660,13 +691,21 @@
               <option value="4301">Wenceslau Braz</option>
               <option value="4309">Xambrê</option>
             </select>
+            <div class="invalid-feedback">
+              "Cidade" não pode ficar em branco.
+            </div>
           </div>
           <div class="col-md-6 mt-5 estados">
             <label for="uf">Estados</label>
             <select
-              id="uf"
-              class="form-control form-select border-dark"
-              name="uf"
+              class="form-select"
+              v-model="estados"
+              v-bind:class="{
+                'form-control': true,
+                'is-invalid': !validestados(estados) && estadosBlured,
+                'is-valid': validestados(estados),
+              }"
+              v-on:blur="estadosBlured = true"
             >
               <option value="">Selecione</option>
               <option value="AC">Acre</option>
@@ -698,20 +737,31 @@
               <option value="TO">Tocantins</option>
               <option value="EX">Estrangeiro</option>
             </select>
+            <div class="invalid-feedback">
+              "Estado" não pode ficar em branco.
+            </div>
           </div>
         </div>
       </div>
 
       <br />
 
-      <div class="col-md-6 offset-md-1 tf">
+      <div class="col-md-6 offset-md-1 tr">
         <label for="telefone">Telefone residencial</label>
         <input
-          type="text"
-          id="telefone"
-          class="form-control border-dark"
-          name="telefone"
+          v-model="telefone_residencial"
+          v-bind:class="{
+            'form-control': true,
+            'is-invalid':
+              !validtelefone_residencial(telefone_residencial) &&
+              telefone_residencialBlured,
+            'is-valid': validtelefone_residencial(telefone_residencial),
+          }"
+          v-on:blur="telefone_residencialBlured = true"
         />
+        <div class="invalid-feedback">
+          "Telefone residencial" não pode ficar em branco.
+        </div>
       </div>
 
       <br />
@@ -719,10 +769,15 @@
       <div class="col-md-6 offset-md-1 tc">
         <label for="telefone_contato">Telefone de contato</label>
         <input
-          type="text"
-          id="telefone_contato"
-          class="form-control border-dark"
-          name="telefone_contato"
+          v-model="telefone_contato"
+          v-bind:class="{
+            'form-control': true,
+            'is-invalid':
+              !validtelefone_contato(telefone_contato) &&
+              telefone_contatoBlured,
+            'is-valid': validtelefone_contato(telefone_contato),
+          }"
+          v-on:blur="telefone_contatoBlured = true"
         />
       </div>
 
@@ -731,10 +786,13 @@
       <div class="col-md-6 offset-md-1 ramal">
         <label for="ramal">Ramal</label>
         <input
-          type="text"
-          id="ramal"
-          class="form-control border-dark"
-          name="ramal"
+          v-model="ramal"
+          v-bind:class="{
+            'form-control': true,
+            'is-invalid': !validramal(ramal) && ramalBlured,
+            'is-valid': validramal(ramal),
+          }"
+          v-on:blur="ramalBlured = true"
         />
       </div>
 
@@ -743,10 +801,13 @@
       <div class="col-md-6 offset-md-1 telefone_celular">
         <label for="telefone_celular">Telefone Celular</label>
         <input
-          type="text"
-          id="telefone_celular"
-          class="form-control border-dark"
-          name="telefone_celular"
+          v-model="celular"
+          v-bind:class="{
+            'form-control': true,
+            'is-invalid': !validcelular(celular) && celularBlured,
+            'is-valid': validcelular(celular),
+          }"
+          v-on:blur="celularBlured = true"
         />
       </div>
 
@@ -755,22 +816,37 @@
           <div class="col-md-6 mt-5 ad">
             <label for="deficiencia">Alguma Deficiencia ?</label>
             <select
-              id="deficiencia"
-              class="form-control form-select border-dark"
-              name="deficiencia"
+              class="form-select"
+              v-model="alguma_deficiencia"
+              v-bind:class="{
+                'form-control': true,
+                'is-invalid':
+                  !validalguma_deficiencia(alguma_deficiencia) &&
+                  alguma_deficienciaBlured,
+                'is-valid': validalguma_deficiencia(alguma_deficiencia),
+              }"
+              v-on:blur="alguma_deficienciaBlured = true"
             >
               <option value="">Selecione</option>
               <option value="1">Sim</option>
               <option value="2">Não</option>
             </select>
+            <div class="invalid-feedback">
+              "Alguma Deficiencia" não pode ficar em branco.
+            </div>
           </div>
           <div class="col-md-6 mt-5 qd">
             <label for="email">Qual deficiencia</label>
             <input
-              type="text"
-              id="email"
-              class="form-control border-dark"
-              name="email"
+              v-model="qual_deficiencia"
+              v-bind:class="{
+                'form-control': true,
+                'is-invalid':
+                  !validqual_deficiencia(qual_deficiencia) &&
+                  qual_deficienciaBlured,
+                'is-valid': validqual_deficiencia(qual_deficiencia),
+              }"
+              v-on:blur="qual_deficienciaBlured = true"
             />
           </div>
         </div>
@@ -787,7 +863,7 @@
           <h4
             class="box_header font-weight-bolder text-smalt-blue text-uppercase"
           >
-            Curso <span id="count">01</span>
+            Curso <span id="count"></span>
           </h4>
         </div>
 
@@ -796,7 +872,16 @@
             <div class="col-md-6 mt-5">
               <label class="mb-1">Formação</label>
               <div class="mb-3">
-                <select class="form-select">
+                <select
+                  class="form-select"
+                  v-model="formacao"
+                  v-bind:class="{
+                    'form-control': true,
+                    'is-invalid': !validformacao(formacao) && formacaoBlured,
+                    'is-valid': validformacao(formacao),
+                  }"
+                  v-on:blur="formacaoBlured = true"
+                >
                   <option value="">Selecione</option>
                   <option value="2">1º Grau (5º a 9º Série)</option>
                   <option value="3">2º Grau (1º a 3º Ano)</option>
@@ -807,13 +892,24 @@
                   <option value="7">Pós Graduação (MBA)</option>
                   <option value="8">Pós Graduação (Mestrado)</option>
                 </select>
+                <div class="invalid-feedback">
+                  "Formação" não pode ficar em branco.
+                </div>
               </div>
             </div>
 
             <div class="col-md-6 mt-5">
               <label>Curso</label>
               <br />
-              <input v-model="message" class="form-control" />
+              <input
+                v-model="curso"
+                v-bind:class="{
+                  'form-control': true,
+                  'is-invalid': !validcurso(curso) && cursoBlured,
+                  'is-valid': validcurso(curso),
+                }"
+                v-on:blur="cursoBlured = true"
+              />
             </div>
           </div>
         </div>
@@ -823,18 +919,38 @@
             <div class="col-md-6 mt-5">
               <label class="mb-1">Situação do Curso</label>
               <div class="mb-3">
-                <select class="form-select">
+                <select
+                  class="form-select"
+                  v-model="situacao"
+                  v-bind:class="{
+                    'form-control': true,
+                    'is-invalid': !validsituacao(situacao) && situacaoBlured,
+                    'is-valid': validsituacao(situacao),
+                  }"
+                  v-on:blur="situacaoBlured = true"
+                >
                   <option value="">Selecione</option>
                   <option value="1">Concluído</option>
                   <option value="2">Cursando</option>
                   <option value="3">Trancado</option>
                 </select>
+                <div class="invalid-feedback">
+                  "Situação do Curso" não pode ficar em branco.
+                </div>
               </div>
             </div>
             <div class="col-md-6 mt-5">
               <label>Mês e Ano de conclusão</label>
               <br />
-              <input v-model="message" class="form-control" />
+              <input
+                v-model="conclusao"
+                v-bind:class="{
+                  'form-control': true,
+                  'is-invalid': !validconclusao(conclusao) && conclusaoBlured,
+                  'is-valid': validconclusao(conclusao),
+                }"
+                v-on:blur="conclusaoBlured = true"
+              />
             </div>
           </div>
         </div>
@@ -844,7 +960,16 @@
             <div class="col-md-6 mt-5">
               <label class="mb-1">Turno</label>
               <div class="mb-3">
-                <select class="form-select">
+                <select
+                  class="form-select"
+                  v-model="turno"
+                  v-bind:class="{
+                    'form-control': true,
+                    'is-invalid': !validturno(turno) && turnoBlured,
+                    'is-valid': validturno(turno),
+                  }"
+                  v-on:blur="turnoBlured = true"
+                >
                   <option value="">Selecione</option>
                   <option value="M">Matutino</option>
                   <option value="V">Vespertino</option>
@@ -866,7 +991,7 @@
 
       <div class="col-md-6 offset-md-1">
         <div class="text-right col-md-12 mt-4">
-          <button class="bg btn btn-primary" type="button" @click="Clone()">
+          <button class="botao" type="button" @click="Clone()">
             Formação Complementar +
           </button>
         </div>
@@ -995,7 +1120,7 @@
       <br />
 
       <div class="col-md-6 offset-md-1">
-        <h3 class="box_header">Experiência Profissional</h3>
+        <h3 class="box_header titulo">Experiência Profissional</h3>
       </div>
 
       <div id="clone04">
@@ -1003,7 +1128,7 @@
           <h4
             class="box_header font-weight-bolder text-smalt-blue text-uppercase"
           >
-            EXPERIÊNCIA <span id="count">01</span>
+            EXPERIÊNCIA <span id="count"></span>
           </h4>
         </div>
 
@@ -1040,7 +1165,7 @@
 
       <div class="col-md-6 offset-md-1">
         <div class="text-right col-md-12 mt-4">
-          <button class="bg btn btn-primary" type="button" @click="clone04()">
+          <button class="botao" type="button" @click="clone04()">
             Experiência Profissional +
           </button>
         </div>
@@ -1067,13 +1192,16 @@
       <br />
 
       <div class="col-md-6 offset-md-1">
-        <label for="curriculum-text">Informações adicionais</label>
+        <label for="text">Informações adicionais</label>
         <select
-          id="curriculum-availability"
-          class="form-control is-invalid form-select"
-          name="Curriculum[availability]"
-          aria-required="true"
-          aria-invalid="true"
+          class="form-select"
+          v-model="adicionais"
+          v-bind:class="{
+            'form-control': true,
+            'is-invalid': !validadicionais(adicionais) && adicionaisBlured,
+            'is-valid': validadicionais(adicionais),
+          }"
+          v-on:blur="adicionaisBlured = true"
         >
           <option value="">Selecione</option>
           <option value="M">Manhã</option>
@@ -1081,6 +1209,7 @@
           <option value="N">Noite</option>
           <option value="I">Integral</option>
         </select>
+        <div class="invalid-feedback">Por favor, selecione uma opção.</div>
       </div>
 
       <br />
@@ -1088,11 +1217,14 @@
       <div class="col-md-6 offset-md-1">
         <label for="curriculum-text">Área pretendida</label>
         <select
-          id="curriculum-area_intended_id"
-          class="form-control is-invalid form-select"
-          name="Curriculum[area_intended_id]"
-          aria-required="true"
-          aria-invalid="true"
+          class="form-select"
+          v-model="area"
+          v-bind:class="{
+            'form-control': true,
+            'is-invalid': !validarea(area) && areaBlured,
+            'is-valid': validarea(area),
+          }"
+          v-on:blur="areaBlured = true"
         >
           <option value="">Selecione</option>
           <option value="20">Administrativo</option>
@@ -1119,31 +1251,36 @@
           <option value="1">Serviço Social</option>
           <option value="17">Tesouraria</option>
         </select>
+        <div class="invalid-feedback">
+          <span> "Área pretendida" não pode ficar em branco.</span>
+        </div>
       </div>
 
       <br />
 
       <div class="col-md-6 offset-md-1">
-        <div
-          class="form-group field-curriculum-area_intended_function_id required validating"
-        >
-          <label for="curriculum-area_intended_function_id">Função</label>
-          <select
-            id="curriculum-area_intended_function_id"
-            class="form-control is-invalid form-select"
-            name="Curriculum[area_intended_function_id]"
-            aria-required="true"
-            aria-invalid="true"
-          ></select>
+        <div class="funcao">
+          <label for="funcao">Função</label>
+          <input
+            class="form-control"
+            v-model="funcao"
+            v-bind:class="{
+              'form-control': true,
+              'is-invalid': !validfuncao(funcao) && funcaoBlured,
+              'is-valid': validfuncao(funcao),
+            }"
+            v-on:blur="funcaoBlured = true"
+          />
+          <div class="invalid-feedback">
+            <span> "Função" não pode ficar em branco.</span>
+          </div>
         </div>
       </div>
 
       <br />
 
       <div class="col-md-8 offset-md-1">
-        <button type="submit" class="more blue bg btn btn-primary">
-          Enviar
-        </button>
+        <button type="submit" class="botao01">Enviar</button>
       </div>
     </form>
   </div>
@@ -1164,11 +1301,58 @@ export default {
       senha: "",
       dtns: "",
       cpf: "",
+      possuiFilhosDependentes: "",
+      quantosFilhosDependentes: "",
+      estadoCivil: "",
+      sexo: "",
+      endereco: "",
+      numero: "",
+      bairro: "",
+      cidade: "",
+      estados: "",
+      telefone_residencial: "",
+      telefone_contato: "",
+      ramal: "",
+      celular: "",
+      alguma_deficiencia: "",
+      qual_deficiencia: "",
+      formacao: "",
+      curso: "",
+      situacao: "",
+      conclusao: "",
+      turno: "",
+      adicionais: "",
+      area: "",
+      funcao: "",
       nameBlured: false,
       emailBlured: false,
       senhaBlured: false,
       dtnsBlured: false,
       cpfBlured: false,
+      possuiDeficienciaBlured: false,
+      qualDeficienciaBlured: false,
+      possuiFilhosDependentesBlured: false,
+      sexoBlured: false,
+      cepBlured: false,
+      enderecoBlured: false,
+      numeroBlured: false,
+      bairroBlured: false,
+      cidadeBlured: false,
+      estadosBlured: false,
+      telefone_residencialBlured: false,
+      telefone_contatoBlured: false,
+      ramalBlured: false,
+      celularBlured: false,
+      alguma_deficienciaBlured: false,
+      qual_deficienciaBlured: false,
+      formacaoBlured: false,
+      cursoBlured: false,
+      situacaoBlured: false,
+      conclusaoBlured: false,
+      turnoBlured: false,
+      adicionaisBlured: false,
+      areaBlured: false,
+      funcaoBlured: false,
     };
   },
   validations() {
@@ -1247,6 +1431,150 @@ export default {
       }
       return true;
     },
+    validFilhosDep: function () {
+      if (this.possuiFilhosDependentes == "") {
+        return false;
+      }
+      return true;
+    },
+    validQuantosDep: function () {
+      if (this.quantosFilhosDependentes == "") {
+        return false;
+      }
+      return true;
+    },
+    validestadoCivil: function () {
+      if (this.estadoCivil == "") {
+        return false;
+      }
+      return true;
+    },
+    validsexo: function () {
+      if (this.sexo == "") {
+        return false;
+      }
+      return true;
+    },
+    validcep: function () {
+      if (this.cep == "") {
+        return false;
+      }
+      return true;
+    },
+    validendereco: function () {
+      if (this.endereco == "") {
+        return false;
+      }
+      return true;
+    },
+    validnumero: function () {
+      if (this.numero == "") {
+        return false;
+      }
+      return true;
+    },
+    validbairro: function () {
+      if (this.bairro == "") {
+        return false;
+      }
+      return true;
+    },
+    validcidade: function () {
+      if (this.cidade == "") {
+        return false;
+      }
+      return true;
+    },
+    validestados: function () {
+      if (this.estados == "") {
+        return false;
+      }
+      return true;
+    },
+    validtelefone_residencial: function () {
+      if (this.telefone_residencial == "") {
+        return false;
+      }
+      return true;
+    },
+    validtelefone_contato: function () {
+      if (this.telefone_contato == "") {
+        return false;
+      }
+      return true;
+    },
+    validramal: function () {
+      if (this.ramal == "") {
+        return false;
+      }
+      return true;
+    },
+    validcelular: function () {
+      if (this.celular == "") {
+        return false;
+      }
+      return true;
+    },
+    validalguma_deficiencia: function () {
+      if (this.alguma_deficiencia == "") {
+        return false;
+      }
+      return true;
+    },
+    validqual_deficiencia: function () {
+      if (this.qual_deficiencia == "") {
+        return false;
+      }
+      return true;
+    },
+    validformacao: function () {
+      if (this.formacao == "") {
+        return false;
+      }
+      return true;
+    },
+    validcurso: function () {
+      if (this.curso == "") {
+        return false;
+      }
+      return true;
+    },
+    validsituacao: function () {
+      if (this.situacao == "") {
+        return false;
+      }
+      return true;
+    },
+    validconclusao: function () {
+      if (this.conclusao == "") {
+        return false;
+      }
+      return true;
+    },
+    validturno: function () {
+      if (this.turno == "") {
+        return false;
+      }
+      return true;
+    },
+    validadicionais: function () {
+      if (this.adicionais == "") {
+        return false;
+      }
+      return true;
+    },
+    validarea: function () {
+      if (this.area == "") {
+        return false;
+      }
+      return true;
+    },
+    validfuncao: function () {
+      if (this.funcao == "") {
+        return false;
+      }
+      return true;
+    },
     // clone
     Clone() {
       const node = document.getElementById("clone");
@@ -1276,82 +1604,24 @@ h3.box_header {
   padding-bottom: 15px;
   line-height: 30px;
 }
-.dados_pessoais {
-  text-align: left;
-  color: blue;
-  font-size: large;
+.botao {
+  color: white;
+  background-color: blue;
+  border-radius: 5px;
+  border: 1px solid blue;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: bold;
 }
-.nome {
-  text-align: left;
-  color: blue;
-}
-.email {
-  color: blue;
-}
-.senha {
-  color: blue;
-}
-.dtns {
-  color: blue;
-}
-.cpf {
-  color: blue;
-}
-.pfd {
-  color: blue;
-}
-.qfd {
-  color: blue;
-}
-.ec {
-  color: blue;
-}
-.sx {
-  color: blue;
-}
-.pd {
-  color: blue;
-}
-.qd {
-  color: blue;
-}
-.cep {
-  color: blue;
-}
-.endereco {
-  color: blue;
-}
-.numero {
-  color: blue;
-}
-.bairro {
-  color: blue;
-}
-.complemento {
-  color: blue;
-}
-.cidades {
-  color: blue;
-}
-.estados {
-  color: blue;
-}
-.tr {
-  color: blue;
-}
-.tc {
-  color: blue;
-}
-.ramal {
-  color: blue;
-}
-.telefone_celular {
-  color: blue;
-}
-.ad {
-  color: blue;
-}
-.qd {
-  color: blue;
+.botao01 {
+  color: white;
+  background-color: blue;
+  border-radius: 5px;
+  border: 1px solid blue;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  max-width: 400px;
+  width: 200px;
 }
 </style>
